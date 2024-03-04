@@ -8,6 +8,7 @@ import Signup from '../components/Authentication/Signup';
 import SelectCountry from '../components/Authentication/SelectCountry';
 import SelectTopics from '../components/Authentication/SelectTopics';
 import SelectSources from '../components/Authentication/SelectSources';
+import Profile from '../components/Authentication/Profile';
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ const NavigationScreen = () => {
             <Stack.Screen name="selectCountry" component={SelectCountry}/>
             <Stack.Screen name="selectTopics" component={SelectTopics}/>
             <Stack.Screen name="selectSources" component={SelectSources}/>
+            <Stack.Screen name="Profile" component={Profile}/>
             <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
         </Stack.Navigator>
 

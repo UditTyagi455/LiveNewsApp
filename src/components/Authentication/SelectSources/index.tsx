@@ -81,7 +81,7 @@ const SelectSources = () => {
     const navigation = useNavigation();
 
     const nextPress = () => {
-        navigation.navigate("selectSources")
+        navigation.navigate("Profile")
     }
     const startFollowing = (item: any) => {
         setMyTopics(cur => {
@@ -100,7 +100,7 @@ const SelectSources = () => {
                 <Icon name="arrow-back-outline" size={30} color="white" onPress={() => navigation.pop()} />
                 <Text style={{ color: "white", marginLeft: wp("20%"), fontWeight: "600", fontSize: 16 }}>Choose Your News Sources</Text>
             </View>
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "column" }}>
+            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "column",paddingHorizontal: 10 }}>
                 <View style={{ marginTop: 20, marginHorizontal: 10 }}>
                     <TextInput
                         value={search}
@@ -117,14 +117,14 @@ const SelectSources = () => {
                         }} />
                     <Icon name="search" size={25} color="white" style={{ position: "absolute", right: 10, top: 12 }} />
                 </View>
-                <View style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between", }}>
+                <View style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between",paddingHorizontal: 8,marginTop: 8 }}>
                     {myTopics.map((item, index) => {
                         return (
                             <View style={{
                                 paddingVertical: 10,
                                 paddingHorizontal: 8,
                                 borderRadius: 6,
-                                marginHorizontal: 8,
+                                marginHorizontal: 4,
                                 marginVertical: 4,
                                 backgroundColor: "#3A3B3C",
                                 alignItems: "center"
@@ -135,12 +135,14 @@ const SelectSources = () => {
                                     <Image source={item.image} />
                                 </View>
 
-                                <Text style={{
-                                    color: topics.includes(item) ? "white" : "white", alignItems: "center",
-                                    paddingHorizontal: 14,
-                                    marginVertical: 5,
-                                    fontWeight: "300"
-                                }} >{item.name}</Text>
+                                <Text
+                                    style={{
+                                        color: topics.includes(item) ? "white" : "white", alignItems: "center",
+                                        paddingHorizontal: 14,
+                                        marginVertical: 5,
+                                        fontWeight: "300"
+                                    }}
+                                >{item.name}</Text>
                                 <TouchableOpacity style={{
                                     borderWidth: 1,
                                     borderColor: "#1877F2",
@@ -157,7 +159,7 @@ const SelectSources = () => {
                     })}
                 </View>
 
-                <TouchableOpacity style={{ backgroundColor: "blue", paddingVertical: 15, alignItems: "center", marginHorizontal: 10, borderRadius: 8, marginTop: hp("7%") }} onPress={nextPress}>
+                <TouchableOpacity style={{ backgroundColor: "#1877F2", paddingVertical: 15, alignItems: "center", marginHorizontal: 10, borderRadius: 8, marginTop: hp("8%") }} onPress={nextPress}>
                     <Text style={{ color: "white", fontSize: 18 }}>Next</Text>
                 </TouchableOpacity>
             </View>
