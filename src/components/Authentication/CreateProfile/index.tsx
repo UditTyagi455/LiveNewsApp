@@ -9,14 +9,14 @@ import { initialValues, validationSchema } from '../../../services/validate/Prof
 import { style } from "./style";
 import ImagePicker from 'react-native-image-crop-picker';
 
-const Profile = () => {
+const CreateProfile = () => {
 
     const [imagePath, setImagePath] = useState("")
     const navigation = useNavigation();
 
     const submitForm = (value) => {
         console.log("value :", value);
-
+navigation.navigate("BottomNavigation")
     }
 
     const nextPress = () => { }
@@ -135,6 +135,6 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default CreateProfile ;
 
 const styles = StyleSheet.create({})

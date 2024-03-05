@@ -21,6 +21,7 @@ const Login = () => {
 
     const submitForm = (value: any) => {
         console.log("submit-form-value ====>", value);
+        navigation.navigate("BottomNavigation")
 
     }
     return (

@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
+import { style } from "./style"
 
 const SelectSources = () => {
     const [topics, setTopics] = useState([]);
@@ -81,7 +82,7 @@ const SelectSources = () => {
     const navigation = useNavigation();
 
     const nextPress = () => {
-        navigation.navigate("Profile")
+        navigation.navigate("CreateProfile");
     }
     const startFollowing = (item: any) => {
         setMyTopics(cur => {
@@ -95,71 +96,46 @@ const SelectSources = () => {
 
     }
     return (
-        <KeyboardAwareScrollView style={{ backgroundColor: "black", height: hp("100%") }}>
-            <View style={{ display: "flex", flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+        <KeyboardAwareScrollView style={style.keyboardView}>
+            <View style={style.header}>
                 <Icon name="arrow-back-outline" size={30} color="white" onPress={() => navigation.pop()} />
-                <Text style={{ color: "white", marginLeft: wp("20%"), fontWeight: "600", fontSize: 16 }}>Choose Your News Sources</Text>
+                <Text style={style.headerText}>Choose Your News Sources</Text>
             </View>
-            <View style={{ display: "flex", justifyContent: "space-between", flexDirection: "column",paddingHorizontal: 10 }}>
+            <View style={style.mediumPart}>
                 <View style={{ marginTop: 20, marginHorizontal: 10 }}>
                     <TextInput
                         value={search}
-                        onChangeText={setTopics}
+                        onChangeText={setSearch}
                         placeholder='search'
                         placeholderTextColor={"white"}
-                        style={{
-                            paddingVertical: 15,
-                            backgroundColor: "#3A3B3C",
-                            color: "white",
-                            fontSize: 16,
-                            fontWeight: "300",
-                            borderRadius: 8
-                        }} />
-                    <Icon name="search" size={25} color="white" style={{ position: "absolute", right: 10, top: 12 }} />
+                        style={style.input} />
+                    <Icon name="search" size={25} color="white" style={style.searchIcon} />
                 </View>
-                <View style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between",paddingHorizontal: 8,marginTop: 8 }}>
+                <View style={style.newsChannels}>
                     {myTopics.map((item, index) => {
                         return (
-                            <View style={{
-                                paddingVertical: 10,
-                                paddingHorizontal: 8,
-                                borderRadius: 6,
-                                marginHorizontal: 4,
-                                marginVertical: 4,
-                                backgroundColor: "#3A3B3C",
-                                alignItems: "center"
-                            }}
+                            <View style={style.cards}
                                 key={index}
                             >
                                 <View style={{ padding: 10, backgroundColor: "#EEF1F452", }}>
                                     <Image source={item.image} />
                                 </View>
-
                                 <Text
-                                    style={{
-                                        color: topics.includes(item) ? "white" : "white", alignItems: "center",
-                                        paddingHorizontal: 14,
-                                        marginVertical: 5,
-                                        fontWeight: "300"
-                                    }}
+                                    style={style.newsName}
                                 >{item.name}</Text>
-                                <TouchableOpacity style={{
-                                    borderWidth: 1,
-                                    borderColor: "#1877F2",
-                                    paddingHorizontal: 8,
-                                    borderRadius: 6,
-                                    paddingVertical: 2,
+                                <TouchableOpacity style={[style.followButton, {
                                     backgroundColor: item.follow ? "#1877f2" : "#3A3B3C"
-                                }}
+                                }]}
                                     onPress={() => startFollowing(item)}
                                 >
-                                    <Text style={{ fontWeight: "500", color: item.follow ? "white" : "#1877F2" }}>{item.follow ? "Following" : "Follow"}</Text></TouchableOpacity>
+                                    <Text style={{ fontWeight: "500", color: item.follow ? "white" : "#1877F2" }}>{item.follow ? "Following" : "Follow"}</Text>
+                                </TouchableOpacity>
                             </View>
                         )
                     })}
                 </View>
 
-                <TouchableOpacity style={{ backgroundColor: "#1877F2", paddingVertical: 15, alignItems: "center", marginHorizontal: 10, borderRadius: 8, marginTop: hp("8%") }} onPress={nextPress}>
+                <TouchableOpacity style={style.nextButton} onPress={nextPress}>
                     <Text style={{ color: "white", fontSize: 18 }}>Next</Text>
                 </TouchableOpacity>
             </View>
