@@ -32,16 +32,16 @@ const Profile = () => {
         });
     }
     return (
-        <KeyboardAwareScrollView style={{ backgroundColor: "black", height: hp("100%") }}>
-            <View style={{ display: "flex", flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+        <KeyboardAwareScrollView style={style.keyboardScrollview}>
+            <View style={style.header}>
                 <Icon name="arrow-back-outline" size={30} color="white" onPress={() => navigation.pop()} />
-                <Text style={{ color: "white", marginLeft: wp("25%"), fontWeight: "600", fontSize: 16 }}>Fill Your Profile</Text>
+                <Text style={style.headerText}>Fill Your Profile</Text>
             </View>
             <View style={{ marginTop: 20 }}>
-                <View style={{ display: "flex", justifyContent: "center", alignItems: "center", position: "relative" }}>
-                    <View style={{ height: 90, width: 90, borderRadius: 100, backgroundColor: "white" }}>
-                        {imagePath && <Image source={{ uri: imagePath }} style={{ height: "100%", width: "100%", borderRadius: 100 }} />}
-                        <Icon name="camera" size={20} color="white" style={{ position: "absolute", bottom: 0, right: 0, backgroundColor: "#1877F2", borderRadius: 50, padding: 4 }} onPress={imagePicker} />
+                <View style={style.profileImageView}>
+                    <View style={style.imagePicker}>
+                        {imagePath && <Image source={{ uri: imagePath }} style={style.profileImage} />}
+                        <Icon name="camera" size={20} color="white" style={style.cameraIcon} onPress={imagePicker} />
                     </View>
                 </View>
                 <View>
@@ -122,7 +122,7 @@ const Profile = () => {
                                         )}
                                     </View>
                                 </View>
-                                <TouchableOpacity style={{ backgroundColor: "#1877F2", paddingVertical: 15, alignItems: "center", marginHorizontal: 10, borderRadius: 8, marginTop: hp("20%") }} onPress={handleSubmit}>
+                                <TouchableOpacity style={style.nextButton} onPress={handleSubmit}>
                                     <Text style={{ color: "white", fontSize: 18 }}>Next</Text>
                                 </TouchableOpacity>
                             </View>
