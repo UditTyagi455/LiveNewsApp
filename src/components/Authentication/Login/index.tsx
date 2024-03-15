@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { initialValues, validationSchema } from '../../../services/validate/Login';
 import { Formik } from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import axios from 'axios';
 
 const Login = () => {
     const [userName, setUserName] = useState("");
@@ -19,9 +20,16 @@ const Login = () => {
 
     const navigation = useNavigation();
 
-    const submitForm = (value: any) => {
-        console.log("submit-form-value ====>", value);
-        navigation.navigate("BottomNavigation")
+    const submitForm =async (value: any) => {
+       try {
+         console.log("submit-form-value ====>", value);
+         const {data} = await axios.post("http://10.0.2.2:8000/api/v1/users/login",value);
+         console.log("response ====>", data);
+         navigation.navigate("BottomNavigation");
+       } catch (error) {
+        console.log("error ==>",error);
+        
+       }
 
     }
     return (
