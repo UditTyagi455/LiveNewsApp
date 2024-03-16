@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -44,7 +45,7 @@ const BottomNavigation = () => {
               style={{
                 fontSize: focused ? 12 : 10,
                 fontWeight: focused ? '400' : '400',
-                color: focused ? 'blue' : 'white',
+                color: focused ? '#1877F2' : 'white',
                 display: 'flex',
                 flexDirection: 'row',
               }}>
@@ -78,7 +79,7 @@ const BottomNavigation = () => {
                   focused ? {borderColor: '#000'} : {borderColor: '#000'},
                 ]}>
                 {route.name == 'Home' && focused ? (
-                  <Ionicons name="home" style={styles.Icon} color={"blue"} />
+                  <Ionicons name="home" style={styles.Icon} color={"#1877F2"} />
                 ) : null}
 
                 {route.name == 'Home' && !focused ? (
@@ -92,23 +93,25 @@ const BottomNavigation = () => {
                   </TouchableWithoutFeedback>
                 ) : null}
                 {route.name == 'Explore' && focused ? (
-                  <Ionicons
-                    name="notifications"
-                    type="Ionicons"
-                    style={styles.Icon}
-                    color={"blue"}
-                  />
+                  <Image source={require("../../assets/img/Explore-icon-fill.png")}/>
+                  // <Ionicons
+                  //   name="notifications"
+                  //   type="Ionicons"
+                  //   style={styles.Icon}
+                  //   color={"#1877F2"}
+                  // />
                 ) : null}
 
                 {route.name == 'Explore' && !focused ? (
                   <TouchableWithoutFeedback
                     onPress={() => iconClicked(route.name)}>
-                    <Ionicons
+                      <Image source={require("../../assets/img/Explore-icon.png")} style={{}}/>
+                    {/* <Ionicons
                       name="notifications-outline"
                       type="Ionicons"
                       style={styles.Icon}
                       color={"white"}
-                    />
+                    /> */}
                   </TouchableWithoutFeedback>
                 ) : null}
 
@@ -117,7 +120,7 @@ const BottomNavigation = () => {
                     name="bookmark"
                     type="Ionicons"
                     style={styles.Icon}
-                    color={"blue"}
+                    color={"#1877F2"}
                   />
                 ) : null}
 
@@ -138,7 +141,7 @@ const BottomNavigation = () => {
                     name="person-circle"
                     type="Ionicons"
                     style={styles.Icon}
-                    color={"blue"} 
+                    color={"#1877F2"} 
                   />
                 ) : null}
 

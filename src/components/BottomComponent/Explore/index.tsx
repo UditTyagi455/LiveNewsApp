@@ -11,7 +11,7 @@ const Explore = () => {
      </View>
      <View style={style.topiHeader}>
        <Text style={{color: 'white', fontSize: 18,fontWeight: "600"}}>Topic</Text>
-       <Text style={{color: 'white', fontSize: 18,fontWeight: "300"}}>See all</Text>
+       <Text style={{color: 'white', fontSize: 16,fontWeight: "300"}}>See all</Text>
      </View>
    </KeyboardAwareScrollView>
   )

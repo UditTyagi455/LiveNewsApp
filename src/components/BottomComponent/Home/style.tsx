@@ -16,4 +16,11 @@ export const style = StyleSheet.create({
     marginHorizontal: 10,
     paddingVertical: 20,
   },
+  topiHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    paddingVertical: 10,
+  },
 });

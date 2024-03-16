@@ -17,7 +17,12 @@ const Profile = () => {
         <Icon name="notifications-outline" size={30} color="white" />
       </View>
 
-      <View style={{flexDirection: 'row',justifyContent: "space-between",marginHorizontal: 10}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 10,
+        }}>
         <View style={{flexDirection: 'column'}}>
           <View
             style={{
@@ -28,26 +33,74 @@ const Profile = () => {
             }}></View>
           <Text style={{color: 'white', fontSize: 20}}>Udit Tyagi</Text>
         </View>
-        <View style={{flexDirection: 'column', marginTop: 20,alignItems: "center"}}>
+        <View
+          style={{
+            flexDirection: 'column',
+            marginTop: 20,
+            alignItems: 'center',
+          }}>
           <Text style={{color: 'white', fontSize: 20}}>216</Text>
           <Text style={{color: 'white', fontSize: 20}}>Following</Text>
         </View>
-        <View style={{flexDirection: 'column', marginTop: 20,alignItems: "center"}}>
+        <View
+          style={{
+            flexDirection: 'column',
+            marginTop: 20,
+            alignItems: 'center',
+          }}>
           <Text style={{color: 'white', fontSize: 20}}>26</Text>
           <Text style={{color: 'white', fontSize: 20}}>Follower</Text>
         </View>
-        <View style={{flexDirection: 'column', marginTop: 20,alignItems: "center"}}>
+        <View
+          style={{
+            flexDirection: 'column',
+            marginTop: 20,
+            alignItems: 'center',
+          }}>
           <Text style={{color: 'white', fontSize: 20}}>23</Text>
           <Text style={{color: 'white', fontSize: 20}}>News</Text>
         </View>
       </View>
-      <Text style={{color: "white",letterSpacing: 1,marginVertical: 8,marginHorizontal: 10}}>Lorem ipsum dolor sit amet consectetur adi elit. Molestias, quasi id autem .</Text>
-      <View style={{flexDirection: "row",justifyContent: "space-between",marginHorizontal: 10,marginVertical: 10}}>
-        <TouchableOpacity style={{backgroundColor: "blue",paddingHorizontal: 8,width: wp("35%"),paddingVertical: 15,borderRadius: 8}}>
-          <Text style={{color: "white",textAlign: "center"}}>Edit Profile</Text>
+      <Text
+        style={{
+          color: 'white',
+          letterSpacing: 1,
+          marginVertical: 8,
+          marginHorizontal: 10,
+        }}>
+        Lorem ipsum dolor sit amet consectetur adi elit. Molestias, quasi id
+        autem .
+      </Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 10,
+          marginVertical: 10,
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'blue',
+            paddingHorizontal: 8,
+            width: wp('35%'),
+            paddingVertical: 15,
+            borderRadius: 8,
+          }}>
+          <Text style={{color: 'white', textAlign: 'center'}}>
+            Edit Profile
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{backgroundColor: "blue",paddingHorizontal: 8,width: wp("35%"),paddingVertical: 15,borderRadius: 8}}>
-          <Text style={{color: "white",textAlign: "center"}}>Edit Profile</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'blue',
+            paddingHorizontal: 8,
+            width: wp('35%'),
+            paddingVertical: 15,
+            borderRadius: 8,
+          }}>
+          <Text style={{color: 'white', textAlign: 'center'}}>
+            Edit Profile
+          </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>
