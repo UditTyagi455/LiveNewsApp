@@ -8,6 +8,7 @@ const Stack = createNativeStackNavigator();
 const HomeNavigation = () => {
     const screenOptions = {
         headerShown: false,
+        animation: 'slide_from_right'
     };
   return (
     <Stack.Navigator initialRouteName='Main' screenOptions={screenOptions}>
@@ -19,4 +20,4 @@ const HomeNavigation = () => {
 
 export default HomeNavigation
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
