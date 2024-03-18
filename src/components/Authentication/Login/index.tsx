@@ -1,5 +1,5 @@
-import { Image, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useState } from 'react'
+import { Button, Image, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useState,useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { style } from './style';
 import { commonStyles } from '../../Styles';
@@ -11,14 +11,31 @@ import { initialValues, validationSchema } from '../../../services/validate/Logi
 import { Formik } from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
+import TouchID from 'react-native-touch-id';
 
 const Login = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("")
     const [isSelected, setSelection] = useState(false);
     const [show, setShow] = useState(false);
+    const [authenticationMessage, setAuthenticationMessage] = useState('');
 
     const navigation = useNavigation();
+
+    //Start here 
+    const handleAuthentication = () => {
+        TouchID.authenticate('Authenticate with Face ID', { fallbackLabel: 'Enter Passcode' })
+          .then(success => {
+            console.log("touch-id auth :::",success);
+            setAuthenticationMessage('Authentication successful!');
+            navigation.navigate("BottomNavigation");
+          })
+          .catch(error => {
+            setAuthenticationMessage('Authentication failed.');
+            console.log(error);
+          });
+      };
+    //End here
 
     const submitForm =async (value: any) => {
        try {
@@ -127,6 +144,11 @@ const Login = () => {
                     )}
                 </Formik>
             </View>
+
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>{authenticationMessage}</Text>
+      <Button title="Authenticate with Face ID" onPress={handleAuthentication} />
+    </View>
             
             <View>
                 <Text style={[commonStyles.textColor, { textAlign: "center", fontSize: 18 }]}>or continue with</Text>
