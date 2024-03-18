@@ -16,4 +16,10 @@ export const style = StyleSheet.create({
     marginHorizontal: 10,
     paddingVertical: 20,
   },
+  settingHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    paddingVertical: 20,
+  }
 });
