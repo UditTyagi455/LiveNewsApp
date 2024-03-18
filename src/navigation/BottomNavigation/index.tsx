@@ -93,25 +93,25 @@ const BottomNavigation = () => {
                   </TouchableWithoutFeedback>
                 ) : null}
                 {route.name == 'Explore' && focused ? (
-                  <Image source={require("../../assets/img/Explore-icon-fill.png")}/>
-                  // <Ionicons
-                  //   name="notifications"
-                  //   type="Ionicons"
-                  //   style={styles.Icon}
-                  //   color={"#1877F2"}
-                  // />
+                  // <Image source={require("../../assets/img/Explore-icon-fill.png")}/>
+                  <Ionicons
+                    name="compass"
+                    type="Ionicons"
+                    style={styles.Icon}
+                    color={"#1877F2"}
+                  />
                 ) : null}
 
                 {route.name == 'Explore' && !focused ? (
                   <TouchableWithoutFeedback
                     onPress={() => iconClicked(route.name)}>
-                      <Image source={require("../../assets/img/Explore-icon.png")} style={{}}/>
-                    {/* <Ionicons
-                      name="notifications-outline"
+                      {/* <Image source={require("../../assets/img/Explore-icon.png")} style={{}}/> */}
+                    <Ionicons
+                      name="compass-outline"
                       type="Ionicons"
                       style={styles.Icon}
                       color={"white"}
-                    /> */}
+                    />
                   </TouchableWithoutFeedback>
                 ) : null}
 

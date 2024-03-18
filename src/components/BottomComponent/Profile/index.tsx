@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {style} from './style';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -30,7 +30,9 @@ const Profile = () => {
               height: 90,
               borderRadius: 100,
               backgroundColor: 'white',
-            }}></View>
+            }}>
+              <Image source={{uri: "https://cdn.pixabay.com/photo/2022/06/06/09/51/free-blazer-boy-stock-photo-7245764_1280.jpg"}} style={{width: "100%",height: "100%",borderRadius: 100}}/>
+            </View>
           <Text style={{color: 'white', fontSize: 20}}>Udit Tyagi</Text>
         </View>
         <View
@@ -40,7 +42,7 @@ const Profile = () => {
             alignItems: 'center',
           }}>
           <Text style={{color: 'white', fontSize: 20}}>216</Text>
-          <Text style={{color: 'white', fontSize: 20}}>Following</Text>
+          <Text style={{color: 'white', fontSize: 16,fontWeight: "300"}}>Followers</Text>
         </View>
         <View
           style={{
@@ -49,7 +51,7 @@ const Profile = () => {
             alignItems: 'center',
           }}>
           <Text style={{color: 'white', fontSize: 20}}>26</Text>
-          <Text style={{color: 'white', fontSize: 20}}>Follower</Text>
+          <Text style={{color: 'white', fontSize: 16,fontWeight: "300"}}>Following</Text>
         </View>
         <View
           style={{
@@ -58,7 +60,7 @@ const Profile = () => {
             alignItems: 'center',
           }}>
           <Text style={{color: 'white', fontSize: 20}}>23</Text>
-          <Text style={{color: 'white', fontSize: 20}}>News</Text>
+          <Text style={{color: 'white', fontSize: 16,fontWeight: "300"}}>News</Text>
         </View>
       </View>
       <Text
@@ -67,6 +69,7 @@ const Profile = () => {
           letterSpacing: 1,
           marginVertical: 8,
           marginHorizontal: 10,
+          fontWeight: "300"
         }}>
         Lorem ipsum dolor sit amet consectetur adi elit. Molestias, quasi id
         autem .
@@ -80,26 +83,26 @@ const Profile = () => {
         }}>
         <TouchableOpacity
           style={{
-            backgroundColor: 'blue',
+            backgroundColor: '#1877F2',
             paddingHorizontal: 8,
-            width: wp('35%'),
+            width: wp('45%'),
             paddingVertical: 15,
             borderRadius: 8,
           }}>
-          <Text style={{color: 'white', textAlign: 'center'}}>
+          <Text style={{color: 'white', textAlign: 'center',fontWeight: "600"}}>
             Edit Profile
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            backgroundColor: 'blue',
+            backgroundColor: '#1877F2',
             paddingHorizontal: 8,
-            width: wp('35%'),
+            width: wp('45%'),
             paddingVertical: 15,
             borderRadius: 8,
           }}>
-          <Text style={{color: 'white', textAlign: 'center'}}>
-            Edit Profile
+          <Text style={{color: 'white', textAlign: 'center',fontWeight: "600"}}>
+            Website
           </Text>
         </TouchableOpacity>
       </View>
