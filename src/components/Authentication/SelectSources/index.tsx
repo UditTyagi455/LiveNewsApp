@@ -15,6 +15,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
+import {UseSelector, useDispatch, useSelector} from 'react-redux';
+import {setRegisteruser} from '../../../features/RegisterUser';
 
 const SelectSources = () => {
   const [topics, setTopics] = useState([]);
@@ -88,11 +90,21 @@ const SelectSources = () => {
 
   //     setMyTopics(val)
   // }
-
+  const storeValue = useSelector(state => state.register);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const nextPress = () => {
-    navigation.navigate('CreateProfile');
+    const followSource = myTopics.filter((item, index) => {
+      return item.follow == true;
+    });
+    if (followSource.length < 3) {
+      alert('please follow min 3 sources!!');
+    } else {
+      const saveOne = {author: followSource};
+      dispatch(setRegisteruser({...storeValue, ...saveOne}));
+      navigation.navigate('CreateProfile');
+    }
   };
   const startFollowing = (item: any) => {
     setMyTopics(cur => {
@@ -160,10 +172,9 @@ const SelectSources = () => {
           })}
         </View>
         <TouchableOpacity style={style.nextButton} onPress={nextPress}>
-        <Text style={{color: 'white', fontSize: 18}}>Next</Text>
-      </TouchableOpacity>
+          <Text style={{color: 'white', fontSize: 18}}>Next</Text>
+        </TouchableOpacity>
       </View>
-      
     </KeyboardAwareScrollView>
   );
 };

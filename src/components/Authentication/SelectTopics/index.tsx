@@ -3,6 +3,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
@@ -14,6 +15,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
+import {UseSelector, useDispatch, useSelector} from 'react-redux';
+import {setRegisteruser} from '../../../features/RegisterUser';
 
 const SelectTopics = () => {
   const [topics, setTopics] = useState([]);
@@ -31,11 +34,20 @@ const SelectTopics = () => {
     'Art',
     'Poltics',
   ]);
+  const storeValue = useSelector(state => state.register);
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
   const nextPress = () => {
-    navigation.navigate('selectSources');
+    console.log('topics ==>', topics);
+    if (topics.length < 3) {
+      alert('Please select more than 2 topic!!');
+    } else {
+      const saveOne = {topics: topics};
+      dispatch(setRegisteruser({...storeValue, ...saveOne}));
+      navigation.navigate('selectSources');
+    }
   };
 
   const pickTopics = (item: string) => {
@@ -81,22 +93,29 @@ const SelectTopics = () => {
         <View style={style.topicsView}>
           {myTopics.map((item, index) => {
             return (
-              <TouchableOpacity
-                style={[
-                  style.selectTopics,
-                  {backgroundColor: topics.includes(item) ? 'blue' : 'black'},
-                ]}
+              <TouchableWithoutFeedback
                 onPress={() => pickTopics(item)}
                 key={index}>
-                <Text
-                  style={{
-                    color: topics.includes(item) ? 'white' : '#1877F2',
-                    alignItems: 'center',
-                    paddingHorizontal: 14,
-                  }}>
-                  {item}
-                </Text>
-              </TouchableOpacity>
+                <View
+                  style={[
+                    style.selectTopics,
+                    {
+                      backgroundColor: topics.includes(item)
+                        ? '#1877F2'
+                        : 'black',
+                    },
+                  ]}>
+                  <Text
+                    style={{
+                      color: topics.includes(item) ? 'white' : '#1877F2',
+                      alignItems: 'center',
+                      paddingHorizontal: 15,
+                      fontWeight: '700',
+                    }}>
+                    {item}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
             );
           })}
         </View>

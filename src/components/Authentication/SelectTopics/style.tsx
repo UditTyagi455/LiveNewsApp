@@ -60,7 +60,7 @@ export const style = StyleSheet.create({
     width: "30%",
   },
   nextBtn: {
-    backgroundColor: 'blue',
+    backgroundColor: '#1877F2',
     paddingVertical: 15,
     alignItems: 'center',
     marginHorizontal: 10,

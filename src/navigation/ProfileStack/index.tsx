@@ -8,6 +8,7 @@ const Stack = createNativeStackNavigator();
 const ProfileNavigation = () => {
     const screenOptions = {
         headerShown: false,
+        animation: 'slide_from_right'
     };
   return (
     <Stack.Navigator initialRouteName='NewsProfile' screenOptions={screenOptions}>

@@ -15,6 +15,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {style} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {UseSelector, useDispatch, useSelector} from 'react-redux';
+import {setRegisteruser} from '../../../features/RegisterUser';
 
 const SelectCountry = () => {
   const [countryName, setCountryName] = useState('');
@@ -24,6 +26,8 @@ const SelectCountry = () => {
   const [countryCode, setCountryCode] = useState('US');
   const [callingCode, setCallingCode] = useState('');
   const [visible, setVisible] = useState(false);
+  const storeValue = useSelector(state => state.register);
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
@@ -38,6 +42,8 @@ const SelectCountry = () => {
   const SelectCountry = e => {
     setCountryName(e.name);
     setCallingCode(e.callingCode[0]);
+    const saveValue = {country: e.name};
+    dispatch(setRegisteruser({...storeValue, ...saveValue}));
   };
   const nextPress = () => {
     navigation.navigate('selectTopics');
@@ -121,8 +127,7 @@ const SelectCountry = () => {
             marginTop: hp('68%'),
           }}
           onPress={nextPress}
-          disabled={countryName ? false : true}
-          >
+          disabled={countryName ? false : true}>
           <Text style={{color: 'white', fontSize: 18}}>Next</Text>
         </TouchableOpacity>
       </View>

@@ -43,6 +43,31 @@ const Profile = () => {
       image: require("../../../assets/img/recent-news.png"),
       heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
     },
+    {
+      id: 6,
+      image: require("../../../assets/img/recent-news.png"),
+      heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
+    },
+    {
+      id: 7,
+      image: require("../../../assets/img/business-news.png"),
+      heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
+    },
+    {
+      id: 8,
+      image: require("../../../assets/img/recent-news.png"),
+      heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
+    },
+    {
+      id: 9,
+      image: require("../../../assets/img/business-news.png"),
+      heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
+    },
+    {
+      id: 10,
+      image: require("../../../assets/img/recent-news.png"),
+      heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
+    },
   ];
 
   useEffect(() => {
