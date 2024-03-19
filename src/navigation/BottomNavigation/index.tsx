@@ -16,11 +16,13 @@ import ExploreNavigation from '../ExploreNavigation';
 import HomeNavigation from '../HomeNavigation';
 import BookmarkNavigation from '../BookmarkNavigation';
 import ProfileNavigation from '../ProfileStack';
+import { setTabBar } from '../../features/Tabbar';
 
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigation = () => {
+  const tabBar = useSelector(state => state.navbar.showTabBar)
 
   const navigation = useNavigation();
   const iconClicked = (route: any) => {
@@ -166,7 +168,10 @@ const BottomNavigation = () => {
           name="Bookmark"
           component={BookmarkNavigation}
         />
-        <Tab.Screen name="Profile" component={ProfileNavigation} />
+        <Tab.Screen 
+        name="Profile"
+         component={ProfileNavigation}
+         options={{tabBarStyle: {display: tabBar ? 'flex' : 'none',backgroundColor: "black"}}} />
       </Tab.Navigator>
     </View>
   )

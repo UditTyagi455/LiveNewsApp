@@ -1,5 +1,5 @@
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {style} from './style';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
@@ -8,10 +8,14 @@ import {
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { setTabBar } from '../../../features/Tabbar';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Profile = () => {
   const [currentlySeen, setCurrentlySeen] = useState(false);
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
 
   const newsArray = [
     {
@@ -40,6 +44,10 @@ const Profile = () => {
       heading: "Minting Your First NFT: A Beginner's Guide to Creating..."
     },
   ];
+
+  useEffect(() => {
+    dispatch(setTabBar(true));
+  })
   return (
     <KeyboardAwareScrollView style={style.keyboardView}>
       <View style={style.header}>

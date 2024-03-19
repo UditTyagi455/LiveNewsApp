@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import  counterSlice  from '../features/Counter'
+import  setNavigationTabBar  from '../features/Tabbar'
 export const store = configureStore({
   reducer: {
     counter: counterSlice,
+    navbar: setNavigationTabBar
   },
 })
 

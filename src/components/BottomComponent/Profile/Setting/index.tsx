@@ -5,7 +5,7 @@ import {
   View,
   Switch,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {style} from '../style';
 import {
   widthPercentageToDP as wp,
@@ -13,10 +13,14 @@ import {
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {setTabBar} from '../../../../features/Tabbar';
+import {useSelector, useDispatch} from 'react-redux';
 
 const Setting = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+
+  const dispatch = useDispatch();
 
   const settingMenu = [
     {
@@ -49,6 +53,11 @@ const Setting = () => {
   const toggleSwitch = () => {
     setIsEnabled(!isEnabled);
   };
+
+  useEffect(() => {
+    dispatch(setTabBar(false));
+    return () => dispatch(setTabBar(true));
+  }, []);
   return (
     <KeyboardAvoidingView style={style.keyboardView}>
       <View style={style.settingHeader}>
@@ -81,7 +90,7 @@ const Setting = () => {
                 color="white"
                 onPress={() => navigation.goBack()}
               />
-              <Text style={{fontSize: 18, paddingLeft: 4}}>{item.menu}</Text>
+              <Text style={{fontSize: 18, paddingLeft: 4,color: "white"}}>{item.menu}</Text>
             </View>
             {index == 3 ? (
               <Switch
