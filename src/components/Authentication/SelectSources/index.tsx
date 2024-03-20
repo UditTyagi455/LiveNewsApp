@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   widthPercentageToDP as wp,
@@ -17,66 +17,12 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
+import axios from 'axios';
 
 const SelectSources = () => {
   const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState('');
-  const [myTopics, setMyTopics] = useState([
-    {
-      id: 1,
-      image: require('../../../assets/img/bbc-news.png'),
-      name: 'BBC News',
-      follow: false,
-    },
-    {
-      id: 2,
-      image: require('../../../assets/img/SCMP.png'),
-      name: 'SCMP',
-      follow: false,
-    },
-    {
-      id: 3,
-      image: require('../../../assets/img/CNN.png'),
-      name: 'CNN',
-      follow: false,
-    },
-    {
-      id: 4,
-      image: require('../../../assets/img/MSN.png'),
-      name: 'MSN',
-      follow: false,
-    },
-    {
-      id: 5,
-      image: require('../../../assets/img/CNET.png'),
-      name: 'CNET',
-      follow: false,
-    },
-    {
-      id: 6,
-      image: require('../../../assets/img/USA-TODAY.png'),
-      name: 'USA Today',
-      follow: false,
-    },
-    {
-      id: 7,
-      image: require('../../../assets/img/TIME.png'),
-      name: 'TIME',
-      follow: false,
-    },
-    {
-      id: 8,
-      image: require('../../../assets/img/Buzzfeed.png'),
-      name: 'Buzzfeed',
-      follow: false,
-    },
-    {
-      id: 9,
-      image: require('../../../assets/img/Daily-mail.png'),
-      name: 'Daily Mail',
-      follow: false,
-    },
-  ]);
+  const [myTopics, setMyTopics] = useState([]);
   // other method for set following
   // const changethefollowvalue = (id: any) => {
   //     let val = myTopics.map((item, index) => {
@@ -94,6 +40,22 @@ const SelectSources = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  useEffect(() => {
+    getMyTopics();
+  },[]);
+
+  const getMyTopics = async () => {
+    try {
+      const {data} = await axios.get("http://192.168.1.11:8000/api/v1/users/authors");
+      console.log("data >>>>",data.data);
+      setMyTopics(data.data)
+      
+    } catch (error) {
+      console.log("error >>>>",error);
+      
+    }
+  }
+
   const nextPress = () => {
     const followSource = myTopics.filter((item, index) => {
       return item.follow == true;
@@ -109,7 +71,7 @@ const SelectSources = () => {
   const startFollowing = (item: any) => {
     setMyTopics(cur => {
       cur.filter((current, index) => {
-        if (current.id == item.id) {
+        if (current.id == item.id) {          
           return (current.follow = !current.follow);
         }
       });
@@ -144,11 +106,11 @@ const SelectSources = () => {
           />
         </View>
         <View style={style.newsChannels}>
-          {myTopics.map((item, index) => {
+          {myTopics.length > 0 && myTopics.map((item, index) => {
             return (
               <View style={style.cards} key={index}>
                 <View style={{padding: 10, backgroundColor: '#EEF1F452'}}>
-                  <Image source={item.image} />
+                  <Image source={{uri: item?.image}} style={{height: 60,width: 60}} />
                 </View>
                 <Text style={style.newsName}>{item.name}</Text>
                 <TouchableOpacity

@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   widthPercentageToDP as wp,
@@ -17,27 +17,34 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
+import axios from 'axios';
 
 const SelectTopics = () => {
   const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState('');
-  const [myTopics, setMyTopics] = useState([
-    'National',
-    'International',
-    'Sport',
-    'Lifestyle',
-    'Business',
-    'Health',
-    'Fashion',
-    'Technology',
-    'Science',
-    'Art',
-    'Poltics',
-  ]);
+  const [myTopics, setMyTopics] = useState([]);
   const storeValue = useSelector(state => state.register);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    console.log("useEffect called :");
+    allTopics();
+    
+  },[])
+
+  const allTopics = async () => {
+    try {
+      const {data} = await axios.get("http://192.168.1.11:8000/api/v1/users/topics");
+      setMyTopics(data.data);
+    console.log("data ===>",data.data);
+    } catch (error) {
+      console.log("error ===>",error);
+      
+    }
+    
+  }
 
   const nextPress = () => {
     console.log('topics ==>', topics);
@@ -91,28 +98,28 @@ const SelectTopics = () => {
           />
         </View>
         <View style={style.topicsView}>
-          {myTopics.map((item, index) => {
+          {myTopics.length > 0 && myTopics?.map((item, index) => {
             return (
               <TouchableWithoutFeedback
-                onPress={() => pickTopics(item)}
+                onPress={() => pickTopics(item.topic)}
                 key={index}>
                 <View
                   style={[
                     style.selectTopics,
                     {
-                      backgroundColor: topics.includes(item)
+                      backgroundColor: topics.includes(item.topic)
                         ? '#1877F2'
                         : 'black',
                     },
                   ]}>
                   <Text
                     style={{
-                      color: topics.includes(item) ? 'white' : '#1877F2',
+                      color: topics.includes(item.topic) ? 'white' : '#1877F2',
                       alignItems: 'center',
                       paddingHorizontal: 15,
                       fontWeight: '700',
                     }}>
-                    {item}
+                    {item?.topic}
                   </Text>
                 </View>
               </TouchableWithoutFeedback>
