@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
+import { API_URL } from '../../../constants';
 import axios from 'axios';
 
 const SelectSources = () => {
@@ -45,8 +46,9 @@ const SelectSources = () => {
   },[]);
 
   const getMyTopics = async () => {
+    // data from Api
     try {
-      const {data} = await axios.get("http://192.168.1.11:8000/api/v1/users/authors");
+      const {data} = await axios.get(`${API_URL}/users/authors`);
       console.log("data >>>>",data.data);
       setMyTopics(data.data)
       
