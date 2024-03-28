@@ -1,9 +1,11 @@
 import {
+  ActivityIndicator,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -17,13 +19,14 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
-import { API_URL } from '../../../constants';
+import {API_URL} from '../../../constants';
 import axios from 'axios';
 
 const SelectSources = () => {
   const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState('');
   const [myTopics, setMyTopics] = useState([]);
+  const [loading, setLoading] = useState(false);
   // other method for set following
   // const changethefollowvalue = (id: any) => {
   //     let val = myTopics.map((item, index) => {
@@ -43,36 +46,44 @@ const SelectSources = () => {
 
   useEffect(() => {
     getMyTopics();
-  },[]);
+  }, []);
 
   const getMyTopics = async () => {
     // data from Api
     try {
       const {data} = await axios.get(`${API_URL}/author/get-author`);
-      setMyTopics(data.data)
-      
+      setMyTopics(data.data);
     } catch (error) {
-      console.log("error >>>>",error);
-      
+      console.log('error >>>>', error);
     }
-  }
+  };
 
-  const nextPress = () => {
+  const nextPress = async () => {
     const followSource = myTopics.filter((item, index) => {
       return item.follow == true;
     });
     if (followSource.length < 3) {
       alert('please follow min 3 sources!!');
     } else {
-      const saveOne = {author: followSource};
-      dispatch(setRegisteruser({...storeValue, ...saveOne}));
-      navigation.navigate('CreateProfile');
+      try {
+        setLoading(true)
+        const {data} = await axios.post(`${API_URL}/author/follow-author`, {
+          userId: storeValue.userId,
+          follow: followSource,
+        });
+        setLoading(false);
+        console.log('APi-data ===>>>>>', data);
+        navigation.navigate('CreateProfile');
+      } catch (error) {
+        console.log('Api-error to follow the author >>', error);
+        setLoading(false);
+      }
     }
   };
   const startFollowing = (item: any) => {
     setMyTopics(cur => {
       cur.filter((current, index) => {
-        if (current._id == item._id) {          
+        if (current._id == item._id) {
           return (current.follow = !current.follow);
         }
       });
@@ -107,35 +118,47 @@ const SelectSources = () => {
           />
         </View>
         <View style={style.newsChannels}>
-          {myTopics.length > 0 && myTopics.map((item, index) => {
-            return (
-              <View style={style.cards} key={index}>
-                <View style={{padding: 10, backgroundColor: '#EEF1F452'}}>
-                  <Image source={{uri: item?.Logo}} style={{height: 60,width: 60}} />
-                </View>
-                <Text style={style.newsName}>{item.name}</Text>
-                <TouchableOpacity
-                  style={[
-                    style.followButton,
-                    {
-                      backgroundColor: item.follow ? '#1877f2' : '#3A3B3C',
-                    },
-                  ]}
-                  onPress={() => startFollowing(item)}>
-                  <Text
+          {myTopics.length > 0 &&
+            myTopics.map((item, index) => {
+              return (
+                <View style={style.cards} key={index}>
+                  <View
                     style={{
-                      fontWeight: '500',
-                      color: item.follow ? 'white' : '#1877F2',
+                      padding: 10,
+                      backgroundColor: '#EEF1F452',
+                      borderRadius: 8,
                     }}>
-                    {item.follow ? 'Following' : 'Follow'}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          })}
+                    <Image
+                      source={{uri: item?.Logo}}
+                      style={{height: 65, width: 65}}
+                    />
+                  </View>
+                  <Text style={style.newsName}>{item.name}</Text>
+                  <TouchableWithoutFeedback
+                    onPress={() => startFollowing(item)}>
+                    <View
+                      style={[
+                        style.followButton,
+                        {
+                          backgroundColor: item.follow ? '#1877f2' : '#3A3B3C',
+                        },
+                      ]}>
+                      <Text
+                        style={{
+                          fontWeight: '500',
+                          color: item.follow ? 'white' : '#1877F2',
+                        }}>
+                        {item.follow ? 'Following' : 'Follow'}
+                      </Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>
+              );
+            })}
         </View>
         <TouchableOpacity style={style.nextButton} onPress={nextPress}>
-          <Text style={{color: 'white', fontSize: 18}}>Next</Text>
+          {!loading ? <Text style={{color: 'white', fontSize: 18}}>Next</Text>
+          : <ActivityIndicator color="white" size="small"/>}
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>

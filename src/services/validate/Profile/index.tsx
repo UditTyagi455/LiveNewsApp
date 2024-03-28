@@ -13,7 +13,6 @@ export const validationSchema = yup.object().shape({
     fullName: yup.string()
         .required("Name is required"),
     email: yup.string()
-        .required('Email is required')
         .email('Email is invalid'),
     phone: yup.string()
     .required("phone number is required")

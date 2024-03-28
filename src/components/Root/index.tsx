@@ -7,9 +7,9 @@ const Root = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    AsyncStorage.getItem('Auth_token').then(token => {
-      if (token) {
-        console.log('token', token);
+    AsyncStorage.getItem('accesstoken').then(accesstoken => {
+      if (accesstoken) {
+        console.log('accesstoken', accesstoken);
         navigation.reset({
           index: 0,
           routes: [{name: 'BottomNavigation'}],

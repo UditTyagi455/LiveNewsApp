@@ -1,11 +1,11 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export const style = StyleSheet.create({
     keyboardScrollview: {
         backgroundColor: "black",
-        height: hp("100%")
+        height: Dimensions.get("screen").height
     },
     header: {
         display: "flex",
@@ -63,12 +63,13 @@ export const style = StyleSheet.create({
         fontWeight: "500",
         letterSpacing: 1
     },
-    nextButton: {
+    RegisterButton: {
         backgroundColor: "#1877F2",
         paddingVertical: 15,
         alignItems: "center",
-        marginHorizontal: 10,
+        // marginHorizontal: 10,
         borderRadius: 8,
-        marginTop: hp("20%")
+        // marginTop: hp("24%")
+        justifyContent: "flex-end"
     }
 })

@@ -1,4 +1,4 @@
-import { Button, Image, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { ActivityIndicator, Button, Image, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useState,useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { style } from './style';
@@ -12,6 +12,8 @@ import { Formik } from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import TouchID from 'react-native-touch-id';
+import { API_URL } from '../../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
     const [userName, setUserName] = useState("");
@@ -19,6 +21,7 @@ const Login = () => {
     const [isSelected, setSelection] = useState(false);
     const [show, setShow] = useState(false);
     const [authenticationMessage, setAuthenticationMessage] = useState('');
+    const [loading,setLoading] = useState(false);
 
     const navigation = useNavigation();
 
@@ -39,15 +42,17 @@ const Login = () => {
 
     const submitForm =async (value: any) => {
        try {
+        setLoading(true)
          console.log("submit-form-value ====>", value);
-         const {data} = await axios.post("http://10.0.2.2:8000/api/v1/users/login",value);
+         const {data} = await axios.post(`${API_URL}/users/login`,value);
          console.log("response ====>", data);
+         setLoading(false);
+         await AsyncStorage.setItem("accesstoken",data.data.accessToken)
          navigation.navigate("BottomNavigation");
        } catch (error) {
         console.log("error ==>",error);
-        
+        setLoading(false);
        }
-
     }
     return (
         <KeyboardAwareScrollView style={{ backgroundColor: "black", height: hp("100%") }}>
@@ -137,7 +142,8 @@ const Login = () => {
                             </View>
                             <TouchableWithoutFeedback onPress={handleSubmit}>
                                 <View style={style.loginBtn}>
-                                    <Text style={[commonStyles.textColor, { fontSize: 18 }]}>Login</Text>
+                                    { !loading ? <Text style={[commonStyles.textColor, { fontSize: 18,color: "white" }]}>Login</Text> :
+                                    <ActivityIndicator size="small" color="white"/>}
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>

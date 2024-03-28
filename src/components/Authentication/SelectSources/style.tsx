@@ -23,9 +23,7 @@ export const style = StyleSheet.create({
   },
   mediumPart: {
     display: 'flex',
-    // justifyContent: 'space-between',
     flexDirection: 'column',
-    paddingHorizontal: 10,
     height: Dimensions.get('screen').height * 0.87,
   },
   input: {
@@ -57,11 +55,12 @@ export const style = StyleSheet.create({
     marginVertical: 4,
     backgroundColor: '#3A3B3C',
     alignItems: 'center',
+    height: 170,
+    width: wp("28%")
   },
   newsName: {
     color: 'white',
     alignItems: 'center',
-    paddingHorizontal: 14,
     marginVertical: 5,
     fontWeight: '300',
   },
@@ -71,6 +70,9 @@ export const style = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 6,
     paddingVertical: 2,
+    marginVertical: 5,
+    width: 80,
+    alignItems: "center"
   },
   nextButton: {
     backgroundColor: '#1877F2',
