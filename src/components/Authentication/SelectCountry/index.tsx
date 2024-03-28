@@ -27,6 +27,8 @@ const SelectCountry = () => {
   const [callingCode, setCallingCode] = useState('');
   const [visible, setVisible] = useState(false);
   const storeValue = useSelector(state => state.register);
+  console.log("storeValue >>>>",storeValue);
+  
   const dispatch = useDispatch();
 
   const navigation = useNavigation();

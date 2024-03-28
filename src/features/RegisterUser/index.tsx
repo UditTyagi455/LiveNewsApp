@@ -2,19 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface RegisterUserState {
+      userId: string,
       email: string,
-      password: string,
       country: string,
-      topics: string[],
-      author: string[],
 }
 
 const initialState: RegisterUserState = {
+    userId: "",
     email: "",
-    password: "",
     country: "",
-    topics: [],
-    author: [],
 }
 
 export const setRegisterUserState = createSlice({
@@ -22,11 +18,9 @@ export const setRegisterUserState = createSlice({
   initialState,
   reducers: {
     setRegisteruser: (state, action) => {
+      state.userId = action.payload.userId,
       state.email = action.payload.email,
-      state.password = action.payload.password,
-      state.country = action.payload.country,
-      state.topics = action.payload.topics,
-      state.author = action.payload.author
+      state.country = action.payload.country
     }
   },
 })

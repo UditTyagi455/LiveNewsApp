@@ -48,8 +48,7 @@ const SelectSources = () => {
   const getMyTopics = async () => {
     // data from Api
     try {
-      const {data} = await axios.get(`${API_URL}/users/authors`);
-      console.log("data >>>>",data.data);
+      const {data} = await axios.get(`${API_URL}/author/get-author`);
       setMyTopics(data.data)
       
     } catch (error) {
@@ -73,7 +72,7 @@ const SelectSources = () => {
   const startFollowing = (item: any) => {
     setMyTopics(cur => {
       cur.filter((current, index) => {
-        if (current.id == item.id) {          
+        if (current._id == item._id) {          
           return (current.follow = !current.follow);
         }
       });
@@ -112,7 +111,7 @@ const SelectSources = () => {
             return (
               <View style={style.cards} key={index}>
                 <View style={{padding: 10, backgroundColor: '#EEF1F452'}}>
-                  <Image source={{uri: item?.image}} style={{height: 60,width: 60}} />
+                  <Image source={{uri: item?.Logo}} style={{height: 60,width: 60}} />
                 </View>
                 <Text style={style.newsName}>{item.name}</Text>
                 <TouchableOpacity

@@ -47,7 +47,8 @@ export const style = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 30
+    marginTop: 30,
+    height: hp("20%")
   },
   selectTopics: {
     paddingVertical: 10,

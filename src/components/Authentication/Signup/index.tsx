@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   StyleSheet,
   Text,
@@ -24,14 +25,17 @@ import {
   validationSchema,
 } from '../../../services/validate/Login';
 import {Formik} from 'formik';
+import axios from 'axios';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
+import {API_URL} from '../../../constants';
 
 const Signup = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(false);
   const [show, setShow] = useState(false);
+  const [loading,setLoading] = useState(false);
   const firstRef = useRef(null);
   const secondRef = useRef(null);
   const dispatch = useDispatch();
@@ -39,10 +43,24 @@ const Signup = () => {
 
   const navigation = useNavigation();
 
-  const submitForm = (values: string) => {
-    console.log('submit-values :::', values);
-    dispatch(setRegisteruser({email: values.email, password: values.password}));
-    navigation.navigate('selectCountry');
+  const submitForm = async (values: string) => {
+    try {
+      setLoading(true);
+      console.log('submit-values :::', values);
+      const {data} = await axios.post(`${API_URL}/users/register`, {
+        email: values?.email,
+        password: values?.password,
+      });
+      console.log('data >>>>>>>', data);
+      setLoading(false);
+      dispatch(setRegisteruser({userId: data.data._id,email: data.data.email}));
+      navigation.navigate('selectCountry');
+    } catch (error) {
+      console.log('error occured into register-user ::', error);
+      setLoading(false);
+    }
+
+   
   };
   const handleFirstSubmit = (event: any) => {
     secondRef.current.focus();
@@ -156,9 +174,9 @@ const Signup = () => {
               </View>
               <TouchableWithoutFeedback onPress={handleSubmit}>
                 <View style={style.loginBtn}>
-                  <Text style={[commonStyles.textColor, {fontSize: 18}]}>
+                  {!loading ? <Text style={[commonStyles.textColor, {fontSize: 18}]}>
                     Signup
-                  </Text>
+                  </Text> : <ActivityIndicator color="white" size="small"/>}
                 </View>
               </TouchableWithoutFeedback>
             </View>
