@@ -28,7 +28,7 @@ import {Formik} from 'formik';
 import axios from 'axios';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
-import {API_URL} from '../../../constants';
+import api from '../../../services/utils/axios';
 
 const Signup = () => {
   const [userName, setUserName] = useState('');
@@ -47,13 +47,13 @@ const Signup = () => {
     try {
       setLoading(true);
       console.log('submit-values :::', values);
-      const {data} = await axios.post(`${API_URL}/users/register`, {
+      const {data} = await api.post(`/users/register`, {
         email: values?.email,
         password: values?.password,
       });
       console.log('data >>>>>>>', data);
       setLoading(false);
-      dispatch(setRegisteruser({userId: data.data._id,email: data.data.email}));
+      dispatch(setRegisteruser({userId: data._id,email: data.email}));
       navigation.navigate('selectCountry');
     } catch (error) {
       console.log('error occured into register-user ::', error);
@@ -98,7 +98,10 @@ const Signup = () => {
           }) => (
             <View style={{marginHorizontal: 15}}>
               <View style={{marginTop: 10}}>
-                <Text style={style.usernamepasswordTest}>Username*</Text>
+                <View style={{flexDirection: "row"}}>
+                <Text style={style.usernamepasswordTest}>Email</Text>
+                <Text style={{marginTop: -3,color: "red",paddingLeft: 2}}>*</Text>
+                </View>
                 <TextInput
                   name="email"
                   ref={firstRef}
@@ -118,7 +121,10 @@ const Signup = () => {
                 </View>
               </View>
               <View style={{marginTop: 5}}>
-                <Text style={style.usernamepasswordTest}>Password*</Text>
+              <View style={{flexDirection: "row"}}>
+                <Text style={style.usernamepasswordTest}>password</Text>
+                <Text style={{marginTop: -3,color: "red",paddingLeft: 2}}>*</Text>
+                </View>
                 <View>
                   <TextInput
                     name="password"

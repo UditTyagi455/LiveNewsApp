@@ -18,86 +18,85 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
-import { API_URL } from '../../../constants';
-import axios from 'axios';
+import api from '../../../services/utils/axios';
 
 const SelectTopics = () => {
   const [topics, setTopics] = useState([]);
-  const [topicNames,setNames] = useState([]);
+  const [topicNames, setNames] = useState([]);
   const [search, setSearch] = useState('');
   const [myTopics, setMyTopics] = useState([]);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const storeValue = useSelector(state => state.register);
-  // console.log("store-value on seldcttopics comp >>",storeValue);
-  
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log("useEffect called :");
+    console.log('useEffect called :');
     allTopics();
-    
-  },[])
+  }, []);
 
   const allTopics = async () => {
     try {
-      const {data} = await axios.get(`${API_URL}/topics/topic`);
-      setMyTopics(data.data);
+      const {data} = await api.get(`/topics/topic`);
+      setMyTopics(data);
     } catch (error) {
-      console.log("error ===>",error);
-      
+      console.log('error ===>', error);
     }
-    
-  }
+  };
 
-  const nextPress =async () => {
+  const nextPress = async () => {
     console.log('topics ==>', topics);
     if (topics.length < 3) {
       alert('Please select more than 2 topic!!');
     } else {
       setLoading(true);
       try {
-        const {data} =await axios.post(`${API_URL}/topics/interested-topic`,{
+        const {data} = await api.post(`/topics/interested-topic`, {
           userId: storeValue.userId,
-          topics: topics
+          topics: topics,
         });
-        setLoading(false)
-        console.log("Api-response >>>>",data);
-        
+        setLoading(false);
+        console.log('Api-response >>>>', data);
+
         navigation.navigate('selectSources');
       } catch (error) {
         setLoading(false);
-        console.log("some error into select the topic ::",error);
-        
+        console.log('some error into select the topic ::', error);
       }
     }
   };
 
   const pickTopics = (item: string) => {
-    console.log("selected item >>>>>>>>>>>>>>",item,"topic-names :::",topicNames);
-    
+    console.log(
+      'selected item >>>>>>>>>>>>>>',
+      item,
+      'topic-names :::',
+      topicNames,
+    );
+
     if (topicNames.includes(item.topic)) {
-      const index =topics.findIndex(user => user._id === item._id);
-      console.log("index >>>",index);
-      
+      const index = topics.findIndex(user => user._id === item._id);
+      console.log('index >>>', index);
+
       if (index > -1) {
         setTopics(cur => {
           cur.splice(index, 1);
           return [...cur];
         });
         setNames(cur => {
-          cur.splice(index,1);
-          return [...cur]
-        })
+          cur.splice(index, 1);
+          return [...cur];
+        });
       }
     } else {
-      setTopics(cur => [...cur,{_id: item._id,topic: item.topic,interested: true}]);
-      setNames(cur => [...cur,item?.topic]);
+      setTopics(cur => [
+        ...cur,
+        {_id: item._id, topic: item.topic, interested: true},
+      ]);
+      setNames(cur => [...cur, item?.topic]);
     }
   };
 
-  
   return (
     <KeyboardAwareScrollView style={style.keyboardView}>
       <View style={style.header}>
@@ -126,38 +125,44 @@ const SelectTopics = () => {
           />
         </View>
         <View style={style.topicsView}>
-          {myTopics.length > 0 && myTopics?.map((item, index) => {
-            return (
-              <TouchableWithoutFeedback
-                onPress={() => pickTopics(item)}
-                key={index}>
-                <View
-                  style={[
-                    style.selectTopics,
-                    {
-                      backgroundColor: topicNames.includes(item.topic)
-                        ? '#1877F2'
-                        : 'black',
-                    },
-                  ]}>
-                  <Text
-                    style={{
-                      color: topicNames.includes(item.topic) ? 'white' : '#1877F2',
-                      alignItems: 'center',
-                      paddingHorizontal: 15,
-                      fontWeight: '700',
-                    }}>
-                    {item?.topic}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-            );
-          })}
+          {myTopics.length > 0 &&
+            myTopics?.map((item, index) => {
+              return (
+                <TouchableWithoutFeedback
+                  onPress={() => pickTopics(item)}
+                  key={index}>
+                  <View
+                    style={[
+                      style.selectTopics,
+                      {
+                        backgroundColor: topicNames.includes(item.topic)
+                          ? '#1877F2'
+                          : 'black',
+                      },
+                    ]}>
+                    <Text
+                      style={{
+                        color: topicNames.includes(item.topic)
+                          ? 'white'
+                          : '#1877F2',
+                        alignItems: 'center',
+                        paddingHorizontal: 15,
+                        fontWeight: '700',
+                      }}>
+                      {item?.topic}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            })}
         </View>
 
         <TouchableOpacity style={style.nextBtn} onPress={nextPress}>
-          {!loading ?<Text style={{color: 'white', fontSize: 18}}>Next</Text> : 
-          <ActivityIndicator color="white" size="small"/>}
+          {!loading ? (
+            <Text style={{color: 'white', fontSize: 18}}>Next</Text>
+          ) : (
+            <ActivityIndicator color="white" size="small" />
+          )}
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>

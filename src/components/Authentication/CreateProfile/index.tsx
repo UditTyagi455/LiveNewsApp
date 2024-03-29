@@ -25,20 +25,23 @@ import {style} from './style';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
-import {API_URL} from '../../../constants';
+import { API_URL } from '../../../services/utils/defines';
+import api from '../../../services/utils/axios';
 
 const CreateProfile = () => {
   const [imagePath, setImagePath] = useState('');
   const [imageLoading, setImageLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const storeValue = useSelector(state => state.register);
+  console.log("store-value >>>",storeValue);
+  
   const navigation = useNavigation();
 
   const submitForm = async (value: any) => {
     try {
       setLoading(true);
       console.log('value :', value);
-      const {data} = await axios.post(`${API_URL}/users/user-create`, {
+      const {data} = await api.post(`/users/user-create`, {
         userid: storeValue.userId,
         country: storeValue.country,
         username: value.username,
@@ -71,15 +74,15 @@ const CreateProfile = () => {
         name: 'test_image.jpg',
       });
 
-      axios
-        .post(`${API_URL}/users/upload-image`, formData, {
+      api
+        .post(`/users/upload-image`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         })
         .then(res => {
-          console.log('upload-image ', res.data.data);
-          setImagePath(res.data.data.path);
+          console.log('upload-image ', res.data);
+          setImagePath(res.data.path);
           setImageLoading(false);
         })
         .catch(err => {

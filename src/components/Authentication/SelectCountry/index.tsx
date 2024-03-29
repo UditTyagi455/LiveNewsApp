@@ -19,12 +19,12 @@ import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
 
 const SelectCountry = () => {
-  const [countryName, setCountryName] = useState('');
+  const [countryName, setCountryName] = useState('India');
   const [withCallingCode, setWithCallingCode] = useState(true);
   const [withAlphaFilter, setWithAlphaFilter] = useState(true);
   const [withFilter, setwithFilter] = useState(true);
   const [countryCode, setCountryCode] = useState('US');
-  const [callingCode, setCallingCode] = useState('');
+  const [callingCode, setCallingCode] = useState('+91');
   const [visible, setVisible] = useState(false);
   const storeValue = useSelector(state => state.register);
   console.log("storeValue >>>>",storeValue);
@@ -44,10 +44,12 @@ const SelectCountry = () => {
   const SelectCountry = e => {
     setCountryName(e.name);
     setCallingCode(e.callingCode[0]);
-    const saveValue = {country: e.name};
-    dispatch(setRegisteruser({...storeValue, ...saveValue}));
   };
+
+  
   const nextPress = () => {
+    const saveValue = {country: countryName};
+    dispatch(setRegisteruser({...storeValue, ...saveValue}));
     navigation.navigate('selectTopics');
   };
   return (
@@ -126,7 +128,7 @@ const SelectCountry = () => {
             alignItems: 'center',
             marginHorizontal: 10,
             borderRadius: 8,
-            marginTop: hp('68%'),
+            marginTop: hp('70%'),
           }}
           onPress={nextPress}
           disabled={countryName ? false : true}>

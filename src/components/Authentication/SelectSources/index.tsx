@@ -19,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import {style} from './style';
 import {UseSelector, useDispatch, useSelector} from 'react-redux';
 import {setRegisteruser} from '../../../features/RegisterUser';
-import {API_URL} from '../../../constants';
+import { API_URL } from '../../../services/utils/defines';
 import axios from 'axios';
 
 const SelectSources = () => {

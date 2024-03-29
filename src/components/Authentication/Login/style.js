@@ -34,7 +34,10 @@ export const style = StyleSheet.create({
         borderRadius: 8,
         marginTop: 6,
         color: "#B0B3B8",
-        paddingRight: 40
+        paddingRight: 40,
+        color: "white",
+        fontWeight: "500",
+        fontSize: 16
     },
     passwordHideShow: {
         position: "absolute",
