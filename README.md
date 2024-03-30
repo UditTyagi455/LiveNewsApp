@@ -1,3 +1,4 @@
+<div style="background-color: #121212; color: #ffffff; padding: 20px;">
 ### Hello! I am Udit Tyagi And I am a Full Stack Developer
 
 ###
@@ -35,9 +36,6 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" height="40" alt="express logo"  />
 </div>
 
-###
-
-<img src="https://raw.githubusercontent.com/udittyagi455/udittyagi455/output/snake.svg" alt="Snake animation" />
 
 ###
 
@@ -56,3 +54,5 @@
 </div>
 
 ###
+
+</div>
